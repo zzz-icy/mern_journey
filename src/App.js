@@ -6,7 +6,7 @@ import {
 	Switch,
 } from "react-router-dom"
 import Users from "./user/pages/Users"
-import NewPlace from "./places/pages/NewPage"
+import NewPlace from "./places/pages/NewPlace"
 
 const App = () => {
 	return (
