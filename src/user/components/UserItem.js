@@ -6,7 +6,8 @@ import Card from "../../shared/components/UIElements/Card"
 const UserItem = (props) => {
 	return (
 		<li className='user-item'>
-			<Card className='user-item__content'>
+			{/* no idea why className passed in as props not overriding .card */}
+			<Card style={{ padding: 0 }}>
 				<Link to={`/${props.id}/places`}>
 					<div className='user-item__image'>
 						<Avatar
