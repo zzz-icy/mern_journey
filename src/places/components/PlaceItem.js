@@ -22,7 +22,7 @@ const PlaceItem = (props) => {
 				header={props.address}
 				contentClass='place-item__modal-content'
 				footerClass='place-item__modal-actions'
-				footer={<Button onClick={closeMapHandler}>CLOSE </Button>}
+				footer={<Button onClick={closeMapHandler}>CLOSE</Button>}
 			>
 				<div className='map-container'>
 					<Map
