@@ -10,7 +10,8 @@ const NewPlace = () => {
 				element='input'
 				type='text'
 				label='Title'
-				// validators=[]
+				// validators=['']
+				errorText='Please enter a valid title.'
 			/>
 		</form>
 	)
