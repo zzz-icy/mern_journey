@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from "react"
 
-import "./Card.css"
+import "./Map.css"
 
 const Map = (props) => {
 	const mapRef = useRef()

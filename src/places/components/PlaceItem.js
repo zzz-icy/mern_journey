@@ -1,19 +1,18 @@
 import React, { useState } from "react"
 
 import Card from "../../shared/components/UIElements/Card"
-import "./PlaceItem.css"
 import Button from "../../shared/components/FormElements/Button"
 import Modal from "../../shared/components/UIElements/Modal"
 import Map from "../../shared/components/UIElements/Map"
+import "./PlaceItem.css"
 
 const PlaceItem = (props) => {
 	const [showMap, setShowMap] = useState(false)
-	const openMapHandler = () => {
-		setShowMap(true)
-	}
-	const closeMapHandler = () => {
-		setShowMap(false)
-	}
+
+	const openMapHandler = () => setShowMap(true)
+
+	const closeMapHandler = () => setShowMap(false)
+
 	return (
 		<React.Fragment>
 			<Modal
