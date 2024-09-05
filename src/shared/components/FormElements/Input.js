@@ -26,8 +26,8 @@ const Input = (props) => {
 	// const [error, setError] = useState()
 	// manage interconnected multiple states
 	const [inputState, dispatch] = useReducer(inputReducer, {
-		value: "",
-		isValid: false,
+		value: props.value || "",
+		isValid: props.isValid || false,
 		isTouched: false,
 	})
 	const { id, onInput } = props
