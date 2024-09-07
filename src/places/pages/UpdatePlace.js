@@ -1,4 +1,4 @@
-import React, { useCallback, useReducer } from "react"
+import React, { useCallback, useEffect, useReducer, useState } from "react"
 import { useParams } from "react-router-dom"
 
 import Input from "../../shared/components/FormElements/Input"
@@ -41,21 +41,46 @@ const DUMMY_PLACES = [
 
 const UpdatePlace = () => {
 	const placeId = useParams().placeId
-	const identifiedPlace = DUMMY_PLACES.find((p) => p.id === placeId)
 
-	const [formState, inputHandler] = useForm(
+	const [formState, inputHandler, setFormData] = useForm(
 		{
 			title: {
-				value: identifiedPlace.title,
+				value: "",
 				isValid: true,
 			},
 			description: {
-				value: identifiedPlace.description,
+				value: "",
 				isValid: true,
 			},
 		},
 		true
 	)
+	const identifiedPlace = DUMMY_PLACES.find((p) => p.id === placeId)
+
+	useEffect(() => {
+		console.log({ identifiedPlace })
+		setFormData(
+			{
+				title: {
+					value: identifiedPlace.title,
+					isValid: true,
+				},
+				description: {
+					value: identifiedPlace.description,
+					isValid: true,
+				},
+			},
+			true
+		)
+		setIsLoading(false)
+	}, [setFormData, identifiedPlace])
+
+	const placeUpdateSubmitHandler = (event) => {
+		event.preventDefault()
+		console.log(formState.inputs)
+	}
+	const [isLoading, setIsLoading] = useState(true)
+
 	if (!identifiedPlace) {
 		return (
 			<div className='center'>
@@ -63,8 +88,19 @@ const UpdatePlace = () => {
 			</div>
 		)
 	}
+
+	if (isLoading) {
+		return (
+			<div className='center'>
+				<h2>Loading...</h2>
+			</div>
+		)
+	}
 	return (
-		<form className='place-form'>
+		<form
+			className='place-form'
+			onSubmit={placeUpdateSubmitHandler}
+		>
 			<Input
 				id='title'
 				element='input'
