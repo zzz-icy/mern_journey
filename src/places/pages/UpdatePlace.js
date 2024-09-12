@@ -41,21 +41,21 @@ const DUMMY_PLACES = [
 
 const UpdatePlace = () => {
 	const placeId = useParams().placeId
+	const identifiedPlace = DUMMY_PLACES.find((p) => p.id === placeId)
 
 	const [formState, inputHandler, setFormData] = useForm(
 		{
 			title: {
-				value: "",
+				value: identifiedPlace.title,
 				isValid: true,
 			},
 			description: {
-				value: "",
+				value: identifiedPlace.description,
 				isValid: true,
 			},
 		},
 		true
 	)
-	const identifiedPlace = DUMMY_PLACES.find((p) => p.id === placeId)
 
 	useEffect(() => {
 		console.log({ identifiedPlace })
