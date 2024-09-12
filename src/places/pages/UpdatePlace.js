@@ -9,6 +9,7 @@ import {
 } from "../../shared/util/validators"
 import "./PlaceForm.css"
 import { useForm } from "../../shared/hooks/form-hook"
+import Card from "../../shared/components/UIElements/Card"
 
 const DUMMY_PLACES = [
 	{
@@ -41,37 +42,39 @@ const DUMMY_PLACES = [
 
 const UpdatePlace = () => {
 	const placeId = useParams().placeId
-	const identifiedPlace = DUMMY_PLACES.find((p) => p.id === placeId)
 
 	const [formState, inputHandler, setFormData] = useForm(
 		{
 			title: {
-				value: identifiedPlace.title,
+				value: "",
 				isValid: true,
 			},
 			description: {
-				value: identifiedPlace.description,
+				value: "",
 				isValid: true,
 			},
 		},
 		true
 	)
+	const identifiedPlace = DUMMY_PLACES.find((p) => p.id === placeId)
 
 	useEffect(() => {
-		console.log({ identifiedPlace })
-		setFormData(
-			{
-				title: {
-					value: identifiedPlace.title,
-					isValid: true,
+		if (identifiedPlace) {
+			setFormData(
+				{
+					title: {
+						value: identifiedPlace.title,
+						isValid: true,
+					},
+					description: {
+						value: identifiedPlace.description,
+						isValid: true,
+					},
 				},
-				description: {
-					value: identifiedPlace.description,
-					isValid: true,
-				},
-			},
-			true
-		)
+				true
+			)
+		}
+
 		setIsLoading(false)
 	}, [setFormData, identifiedPlace])
 
@@ -84,11 +87,14 @@ const UpdatePlace = () => {
 	if (!identifiedPlace) {
 		return (
 			<div className='center'>
-				<h2>Could not find place!</h2>
+				<Card>
+					<h2>Could not find place!</h2>
+				</Card>
 			</div>
 		)
 	}
-
+	console.log(isLoading)
+	// if (formState.inputs.title.value) {
 	if (isLoading) {
 		return (
 			<div className='center'>
