@@ -7,10 +7,12 @@ import Input from "../../shared/components/FormElements/Input"
 import {
 	VALIDATOR_EMAIL,
 	VALIDATOR_MINLENGTH,
+	VALIDATOR_REQUIRE,
 } from "../../shared/util/validators"
 import Button from "../../shared/components/FormElements/Button"
 
 const Auth = () => {
+	const [isLogin, setIsLogin] = useState(true)
 	const [formState, inputHandler, setFormData] = useForm(
 		{
 			email: {
@@ -28,6 +30,27 @@ const Auth = () => {
 		event.preventDefault()
 		console.log(formState.inputs)
 	}
+	const switchModeHandler = (event) => {
+		if (!isLogin) {
+			setFormData(
+				{ ...formState.inputs, name: undefined },
+				formState.inputs.email.isValid && formState.inputs.password.isValid
+			)
+		} else {
+			setFormData(
+				{
+					...formState.input,
+					name: {
+						value: "",
+						isValid: false,
+					},
+				},
+				false
+			)
+		}
+
+		setIsLogin((prevMode) => !prevMode)
+	}
 	return (
 		<Card className='authentication'>
 			<h2>Login Required</h2>
@@ -36,6 +59,17 @@ const Auth = () => {
 				className='auth-form'
 				onSubmit={authSubmitHandler}
 			>
+				{!isLogin && (
+					<Input
+						id='name'
+						element='input'
+						type='text'
+						label='Your Name'
+						validators={[VALIDATOR_REQUIRE()]}
+						errorText='Please enter a name.'
+						onInput={inputHandler}
+					/>
+				)}
 				<Input
 					id='email'
 					element='input'
@@ -58,9 +92,15 @@ const Auth = () => {
 					type='submit'
 					disabled={!formState.isValid}
 				>
-					LOGIN
+					{isLogin ? "LOGIN" : "SIGNUP"}
 				</Button>
 			</form>
+			<Button
+				inverse
+				onClick={switchModeHandler}
+			>
+				SWITCH TO {isLogin ? "SIGNUP" : "SIGNIN"}
+			</Button>
 		</Card>
 	)
 }
