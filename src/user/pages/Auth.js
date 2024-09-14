@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useReducer, useState } from "react"
+import React, {
+	useCallback,
+	useContext,
+	useEffect,
+	useReducer,
+	useState,
+} from "react"
 
 import "./Auth.css"
 import { useForm } from "../../shared/hooks/form-hook"
@@ -10,8 +16,10 @@ import {
 	VALIDATOR_REQUIRE,
 } from "../../shared/util/validators"
 import Button from "../../shared/components/FormElements/Button"
+import { AuthContext } from "../../shared/context/auth-context"
 
 const Auth = () => {
+	const auth = useContext(AuthContext)
 	const [isLogin, setIsLogin] = useState(true)
 	const [formState, inputHandler, setFormData] = useForm(
 		{
@@ -91,6 +99,13 @@ const Auth = () => {
 				<Button
 					type='submit'
 					disabled={!formState.isValid}
+					onClick={() => {
+						if (auth.isLoggedIn) {
+							auth.logout()
+						} else {
+							auth.login()
+						}
+					}}
 				>
 					{isLogin ? "LOGIN" : "SIGNUP"}
 				</Button>
