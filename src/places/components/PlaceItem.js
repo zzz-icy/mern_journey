@@ -43,7 +43,7 @@ const PlaceItem = (props) => {
 			<Modal
 				show={showConfirmModal}
 				header='Are you sure?'
-				footerClass='place-item_modal-actions'
+				footerClass='place-item__modal-actions'
 				footer={
 					<React.Fragment>
 						<Button
