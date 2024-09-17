@@ -23,7 +23,6 @@ const App = () => {
 	const logout = useCallback(() => {
 		setIsLoggedIn(false)
 	}, [])
-	console.log()
 	let routes
 	if (isLoggedIn) {
 		routes = (
